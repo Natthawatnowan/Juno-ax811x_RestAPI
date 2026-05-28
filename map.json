@@ -1,0 +1,332 @@
+{
+  "id": 158,
+  "map_name": "TEST BY WAVE",
+  "uid": "6a0bcdb672c29a28da1a2ce8",
+  "map_version": 3,
+  "create_time": 1779866097,
+  "last_modified_time": 1779874686,
+  "grid_origin_x": -6.7,
+  "grid_origin_y": -3.7,
+  "grid_resolution": 0.05,
+  "overlays_version": 30,
+  "overlays": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "6a1696cbf4a5cba0e76da690",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            -0.1
+          ]
+        },
+        "properties": {
+          "deviceIds": null,
+          "dockingPointId": "6a1696d9726a3efa62742e51",
+          "mapOverlay": true,
+          "name": "Charg",
+          "subtype": "24v",
+          "type": "9",
+          "yaw": "85.94"
+        }
+      },
+      {
+        "id": "6a1696d9726a3efa62742e51",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0.06367285475838318,
+            0.7970634783428403
+          ]
+        },
+        "properties": {
+          "dockingPointId": "6a1696cbf4a5cba0e76da690",
+          "mapOverlay": true,
+          "name": "Charg Docking Point",
+          "type": "36",
+          "yaw": "265.94"
+        }
+      },
+      {
+        "id": "6a1697ccd2723cfa2130d5c7",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            6.825,
+            11.7825
+          ]
+        },
+        "properties": {
+          "mapOverlay": true,
+          "name": "StandbyDown",
+          "type": "11",
+          "yaw": "360"
+        }
+      },
+      {
+        "id": "6a1697eb747d700f1e3806dc",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.808732650776584,
+            11.28962084993078
+          ]
+        },
+        "properties": {
+          "deviceIds": [
+            "B682404403185Pn"
+          ],
+          "dockViaDirection": "front",
+          "enforcePullOut": false,
+          "hasFixedLegs": false,
+          "mapOverlay": true,
+          "name": "Down",
+          "relatedShelvesAreaId": "6a16a023c45367645b3a2305",
+          "shelvesState": "0",
+          "subtype": "rack",
+          "type": "34",
+          "yaw": "360"
+        }
+      },
+      {
+        "id": "6a16996a82dda495cdb41f29",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.629425974379119,
+            4.004697602873775
+          ]
+        },
+        "properties": {
+          "deviceIds": [
+            "B682404403185Pn"
+          ],
+          "dockViaDirection": "front",
+          "enforcePullOut": false,
+          "hasFixedLegs": false,
+          "mapOverlay": true,
+          "name": "Up",
+          "relatedShelvesAreaId": "6a16a0053c0b2d08a0d5b9d9",
+          "shelvesState": "0",
+          "subtype": "rack",
+          "type": "34",
+          "yaw": "169.34"
+        }
+      },
+      {
+        "id": "6a1699d49371a7e59985926f",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            2.215668310725505,
+            8.730447118239226
+          ]
+        },
+        "properties": {
+          "hasFixedLegs": false,
+          "mapOverlay": true,
+          "name": "Point",
+          "type": "11",
+          "yaw": "0"
+        }
+      },
+      {
+        "id": "6a16a0053c0b2d08a0d5b9d9",
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                7.157725218576161,
+                5.278199158311736
+              ],
+              [
+                8.985967096748482,
+                4.803559442905225
+              ],
+              [
+                8.282797140282128,
+                2.729208091665214
+              ],
+              [
+                6.560030762159386,
+                3.2038478065032905
+              ],
+              [
+                7.157725218576161,
+                5.348516158392158
+              ],
+              [
+                7.157725218576161,
+                5.278199158311736
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "blocked": false,
+          "desc": "Up_Shelf",
+          "mapOverlay": true,
+          "regionType": "17",
+          "shelvesAreaStopPoints": [
+            "6a16bb5f82f34a9ccdd2eba7"
+          ]
+        }
+      },
+      {
+        "id": "6a16a023c45367645b3a2305",
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                8.423430965649459,
+                12.098947532308557
+              ],
+              [
+                7.755419508725936,
+                10.393760405236208
+              ],
+              [
+                9.40786889515266,
+                9.866382939947016
+              ],
+              [
+                10.0407218516807,
+                11.69462481783512
+              ],
+              [
+                8.423430965649459,
+                12.08136829148998
+              ],
+              [
+                8.423430965649459,
+                12.098947532308557
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "blocked": false,
+          "desc": "Down_Shelf",
+          "mapOverlay": true,
+          "regionType": "17",
+          "shelvesAreaStopPoints": [
+            "6a16bb5fa8652ed6d5c953ba",
+            "6a16bb5f494722cdbf315dbb"
+          ]
+        }
+      },
+      {
+        "id": "6a16b0fc0ce2d9ad5d92ed5f",
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              7.627865273320822,
+              3.959735507237383
+            ],
+            [
+              6.835368357698463,
+              4.191823888426446
+            ],
+            [
+              4.68112641414109,
+              4.822709025660288
+            ],
+            [
+              6.849084288660379,
+              11.747545328688602
+            ],
+            [
+              8.166654084023888,
+              11.443490760512754
+            ],
+            [
+              8.76446453958124,
+              11.305534501531156
+            ]
+          ]
+        },
+        "properties": {
+          "detourRadius": 0,
+          "direction": 1,
+          "driveType": "2",
+          "lineType": "1",
+          "mapOverlay": true,
+          "rcsTrack": false,
+          "runSpeed": 1.5,
+          "trackSize": 0
+        }
+      },
+      {
+        "id": "6a16bb5f82f34a9ccdd2eba7",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            6.835368357698463,
+            4.191823888426446
+          ]
+        },
+        "properties": {
+          "mapOverlay": true,
+          "name": "Up_ShelfStopover Point03",
+          "relatedShelvesAreaId": "6a16a0053c0b2d08a0d5b9d9",
+          "type": "38",
+          "yaw": "0"
+        }
+      },
+      {
+        "id": "6a16bb5fa8652ed6d5c953ba",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.166654084023888,
+            11.443490760512754
+          ]
+        },
+        "properties": {
+          "mapOverlay": true,
+          "name": "Down_ShelfStopover Point30",
+          "relatedShelvesAreaId": "6a16a023c45367645b3a2305",
+          "type": "38",
+          "yaw": "0"
+        }
+      },
+      {
+        "id": "6a16bb5f494722cdbf315dbb",
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.166654084023888,
+            11.443490760512754
+          ]
+        },
+        "properties": {
+          "mapOverlay": true,
+          "name": "Down_ShelfStopover Point40",
+          "relatedShelvesAreaId": "6a16a023c45367645b3a2305",
+          "type": "38",
+          "yaw": "0"
+        }
+      }
+    ]
+  },
+  "thumbnail_url": "http://192.168.12.1:8090/maps/158/thumbnail",
+  "image_url": "http://192.168.12.1:8090/maps/158.png",
+  "download_url": "http://192.168.12.1:8090/maps/158/download",
+  "pbstream_url": "http://192.168.12.1:8090/maps/158.pbstream"
+}
