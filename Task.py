@@ -1,60 +1,79 @@
+import os
 import time
-from RobotFunctions import init_robot, move, jack_up, move_path, jack_down, end_robot
+from dotenv import load_dotenv
+from RobotFunctions import RobotController
 
-def main():
-    print(">> Initializing Robot System...")
-    if not init_robot("map.json"):
-        print("❌ Initialization failed. Exiting.")
-        return
+def setup_robot():
+    load_dotenv()
+    
+    base_url_env = os.getenv("BASE_URL", "http://192.168.12.1:8090")
+    map_name = os.getenv("MAP_NAME", "map.json")
+    
+    if "://" in base_url_env:
+        url_part = base_url_env.split("://")[1]
+    else:
+        url_part = base_url_env
+        
+    if ":" in url_part:
+        robot_ip, port = url_part.split(":")
+    else:
+        robot_ip = url_part
+        port = "8090"
 
+    map_file = "map.json" if not map_name.endswith(".json") else map_name
+
+    robot = RobotController(robot_ip=robot_ip, port=port, json_path=map_file)
+    
+    if not robot.init_robot():
+        return None
+        
+    return robot
+
+def run_task(robot):
     try:
-        print("\n⚡ Mission Started")
-
-        # Step 1: ไปจุด Standby
-        print("-> Moving to Point...")
-        if not move("Point"): return print("❌ Failed at Step 1")
+        if not robot.move("Point"): 
+            return
         time.sleep(1)
 
-        # Step 2: มุดเข้าใต้ Rack (Up)
-        print("-> Aligning with Rack (Up)...")
-        if not move("Up", move_type="align_with_rack"): return print("❌ Failed at Step 2")
+        if not robot.move("Up", move_type="align_with_rack"): 
+            return
 
-        # Step 3: ยกโหลดขึ้น
-        print("-> Jacking Up...")
-        if not jack_up(): return print("❌ Failed at Step 3")
+        if not robot.jack_up(): 
+            return
         time.sleep(1)
 
-        # Step 4: ลากตาม LineString ไปจุด Down
-        print("-> Moving along path to Down...")
-        if not move_path("Down"): return print("❌ Failed at Step 4")
+        if not robot.move_path("Down"): 
+            return
         time.sleep(1)
 
-        # Step 5: วาง Rack ลง
-        print("-> Jacking Down...")
-        if not jack_down(): return print("❌ Failed at Step 5")
+        if not robot.jack_down(): 
+            return
 
-        # Step 6: ยกขึ้นเคลียร์สเตตัส
-        print("-> Jacking Up...")
-        if not jack_up(): return print("❌ Failed at Step 6")
+        if not robot.jack_up(): 
+            return
 
-        # Step 7: วิ่งส่งของไป Unload Point
-        print("-> Moving to Unload Point...")
-        if not move("Up", move_type="to_unload_point"): return print("❌ Failed at Step 7")
+        if not robot.move("Up", move_type="to_unload_point"): 
+            return
 
-        # Step 8: วางลงอย่างสมบูรณ์
-        print("-> Final Jacking Down...")
-        if not jack_down(): return print("❌ Failed at Step 8")
+        if not robot.jack_down(): 
+            return
 
-        # Step 9: กลับจุดสแตนด์บายตัวเปล่า
-        print("-> Returning to Point...")
-        if not move("Point"): return print("❌ Failed at Step 9")
+        if not robot.move("Point"): 
+            return
 
-        print("\n🎉 🎉 🎉 [MISSION FULLY COMPLETED!] 🎉 🎉 🎉")
+        print("SUCCESS")
 
     except KeyboardInterrupt:
-        print("\n🛑 Interrupted by User")
+        pass
     finally:
-        end_robot()
+        robot.end_robot()
+
+def main():
+    robot = setup_robot()
+    if robot is None:
+        return
+        
+    run_task(robot)
 
 if __name__ == "__main__":
     main()
