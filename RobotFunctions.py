@@ -180,16 +180,24 @@ class RobotController:
         move_id = self.send_move_command(point["x"], point["y"], move_type, rack_area_id=point.get("area_id", ""))
         return self.wait_for_move_completion(move_id, point['name']) if move_id else False
 
-    def move_path(self, target, detour_tolerance=0.0):
+    def move_path(self, target, detour_tolerance=0.0, reverse=False): # 1. เพิ่มตัวแปร reverse
         if target not in self.waypoints:
             print(f"Error: Waypoint name '{target}' not found in JSON")
             return False
         point = self.waypoints[target]
+        
         route_coords = self.map_routes.get("map_main_line", [])
         if not route_coords:
             print("Error: No LineString route data found in map file!")
             return False
+        
+        # 2. เช็กว่าถ้าสั่ง reverse=True ให้กลับลำดับพิกัด
+        if reverse:
+            route_coords = route_coords[::-1]
+            print("Mode: Reverse path execution (6 -> 1)")
+            
         route_str = ", ".join([f"{pt[0]}, {pt[1]}" for pt in route_coords])
+        
         print(f"Command: Move robot (along_given_route) to {point['name']} (X: {point['x']}, Y: {point['y']})")
         move_id = self.send_move_command(x=point["x"], y=point["y"], move_type="along_given_route", route_coordinates=route_str, detour_tolerance=detour_tolerance)
         return self.wait_for_move_completion(move_id, point['name']) if move_id else False
@@ -251,6 +259,55 @@ class RobotController:
                 time.sleep(0.5)
         except Exception as e: 
             print(f"\n💥 Error jack_down: {e}")
+        return False
+
+    def set_remote_mode(self, enable=True):
+            url = f"{self.base_url}/services/wheel_control/set_control_mode"
+            mode_str = "remote" if enable else "auto"
+            payload = {"control_mode": mode_str}
+            try:
+                response = requests.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=5)
+                if response.status_code in [200, 201]:
+                    return True
+            except Exception:
+                pass
+            return False
+    
+    def remote_control(self, linear, angular, duration_sec):
+        if not (self.ws_app and self.ws_app.sock and self.ws_app.sock.connected):
+            return False
+            
+        payload = {
+            "topic": "/twist",
+            "linear_velocity": float(linear),
+            "angular_velocity": float(angular)
+        }
+        stop_payload = {
+            "topic": "/twist",
+            "linear_velocity": 0.0,
+            "angular_velocity": 0.0
+        }
+        
+        start_time = time.time()
+        interval = 0.1 
+        
+        try:
+            while time.time() - start_time < duration_sec:
+                loop_start = time.time()
+                self.ws_app.send(json.dumps(payload))
+                
+                elapsed = time.time() - loop_start
+                sleep_time = interval - elapsed
+                if sleep_time > 0:
+                    time.sleep(sleep_time)
+            
+            self.ws_app.send(json.dumps(stop_payload))
+            return True
+        except Exception:
+            try:
+                self.ws_app.send(json.dumps(stop_payload))
+            except Exception:
+                pass
         return False
 
     def end_robot(self):

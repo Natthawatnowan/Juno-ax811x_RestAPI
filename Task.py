@@ -33,15 +33,13 @@ def run_task(robot):
     try:
         if not robot.move("Point"): 
             return
-        time.sleep(1)
 
         if not robot.move("Up", move_type="align_with_rack"): 
             return
 
         if not robot.jack_up(): 
             return
-        time.sleep(1)
-
+    
         if not robot.move_path("Down"): 
             return
         time.sleep(1)
@@ -49,13 +47,17 @@ def run_task(robot):
         if not robot.jack_down(): 
             return
 
-        if not robot.jack_up(): 
+        if not robot.set_remote_mode(enable=True):
+            return
+        
+        if not robot.remote_control(-1.0, 0.0, duration_sec=12.0): 
+            print("Failed to execute remote control movement")
             return
 
-        if not robot.move("Up", move_type="to_unload_point"): 
+        if not robot.set_remote_mode(enable=False):
             return
 
-        if not robot.jack_down(): 
+        if not robot.move_path("Up", reverse=True): 
             return
 
         if not robot.move("Point"): 
@@ -66,6 +68,7 @@ def run_task(robot):
     except KeyboardInterrupt:
         pass
     finally:
+        robot.set_remote_mode(enable=False)  
         robot.end_robot()
 
 def main():
